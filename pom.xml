@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>vn.slf</groupId>
-    <artifactId>template-cloud-function</artifactId>
+    <artifactId>fun-event-annual-letter-parse-config</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
-    <name>template-cloud-function</name>
-    <description>Template Function</description>
+    <name>fun-event-annual-letter-parse-config</name>
+    <description>Event Annual Letter Parse Config Function</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
