@@ -1,15 +1,15 @@
-package vn.slf.handlers;
+package com.sunlife.vn;
 
-import vn.slf.functions.TaskFunction;
-import vn.slf.models.TaskRequest;
-import vn.slf.models.TaskResponse;
+import com.sunlife.vn.functions.TaskFunction;
+import com.sunlife.vn.models.dto.TaskRequest;
+import com.sunlife.vn.models.dto.TaskResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.function.Function;
 
-@SpringBootApplication(scanBasePackages = {"com.slf"})
+@SpringBootApplication(scanBasePackages = {"com.sunlife.vn"})
 public class FunctionApplication {
 
     public static void main(String[] args) {

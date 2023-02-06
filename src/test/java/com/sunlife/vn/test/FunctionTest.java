@@ -1,8 +1,8 @@
-package vn.slf.functions;
+package com.sunlife.vn.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import vn.slf.handlers.FunctionApplication;
-import vn.slf.models.TaskRequest;
+import com.sunlife.vn.FunctionApplication;
+import com.sunlife.vn.models.dto.TaskRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

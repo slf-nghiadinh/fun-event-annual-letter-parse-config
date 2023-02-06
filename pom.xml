@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>vn.slf</groupId>
+    <groupId>com.sunlife.vn</groupId>
     <artifactId>fun-event-annual-letter-parse-config</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>fun-event-annual-letter-parse-config</name>
@@ -14,61 +14,85 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.0.RELEASE</version>
+        <version>2.7.8</version>
         <relativePath/>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <spring-cloud-function.version>3.2.8</spring-cloud-function.version>
-        <wrapper.version>1.0.10.RELEASE</wrapper.version>
-        <aws-lambda-core.version>1.2.1</aws-lambda-core.version>
-        <slf-event-core.version>0.0.1</slf-event-core.version>
-        <start-class>vn.slf.handlers.FunctionApplication</start-class>
+        <java.version>11</java.version>
+        <spring-boot-thin.version>1.0.29.RELEASE</spring-boot-thin.version>
+        <spring-cloud.version>3.2.8</spring-cloud.version>
+        <maven-shade.version>3.4.1</maven-shade.version>
+        <awssdk.version>2.18.28</awssdk.version>
+
+        <event-core.version>1.0.0</event-core.version>
     </properties>
 
     <dependencies>
+        <!--Spring Cloud Dependencies-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-function-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-function-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-function-adapter-aws</artifactId>
-            <version>${spring-cloud-function.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+
+        <!--Test Scope Dependencies-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-contract-wiremock</artifactId>
-            <version>3.1.5</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.restdocs</groupId>
-            <artifactId>spring-restdocs-mockmvc</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.restdocs</groupId>
-            <artifactId>spring-restdocs-asciidoctor</artifactId>
         </dependency>
 
-        <!-- Provided Scope -->
+        <!--Addition Dependencies-->
         <dependency>
-            <groupId>com.slf</groupId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--Provided Dependencies-->
+        <dependency>
+            <groupId>com.sunlife.vn</groupId>
             <artifactId>event-core-services</artifactId>
-            <version>0.0.1</version>
+            <version>${event-core.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-function-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>${awssdk.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -79,7 +103,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -87,14 +110,14 @@
                     <dependency>
                         <groupId>org.springframework.boot.experimental</groupId>
                         <artifactId>spring-boot-thin-layout</artifactId>
-                        <version>${wrapper.version}</version>
+                        <version>${spring-boot-thin.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>${maven-shade.version}</version>
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
